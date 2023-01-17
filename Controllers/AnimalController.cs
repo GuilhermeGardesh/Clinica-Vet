@@ -1,0 +1,115 @@
+﻿using Clinica_Vet.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
+
+namespace Clinica_Vet.Controllers
+{
+    public class AnimalController : Controller
+    {
+        public readonly Db _db;
+
+        public AnimalController()
+        {
+            _db = new Db();
+        }
+
+        // GET: AnimalController
+        public ActionResult Index()
+        {
+            var animais = _db.Animal.ToList();
+            return View(animais);
+        }
+
+        // GET: AnimalController/Details/5
+        public ActionResult Details(int idAnimal)
+        {
+            var animal = _db.Animal.Where(animal => animal.Id == idAnimal).FirstOrDefault();
+            return View(animal);
+        }
+
+        // GET: AnimalController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: AnimalController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Animal animal)
+        {
+            try
+            {
+                _db.Animal.Add(animal);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AnimalController/Edit/5
+        public ActionResult Edit(int idAnimal)
+        {
+            var animal = _db.Animal.Where(animal => animal.Id == idAnimal).First();
+            return View(animal);
+        }
+
+        // POST: AnimalController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Animal animal)
+        {
+            try
+            {
+                _db.Entry(animal).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: AnimalController/Delete/5
+        public ActionResult Delete(int idAnimal)
+        {
+            var animal = _db.Animal.Where(animal => animal.Id == idAnimal).FirstOrDefault();
+            return View(animal);
+        }
+
+        // POST: AnimalController/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int idAnimal)
+        {
+            try
+            {
+                var animal = _db.Animal.Find(idAnimal);
+                _db.Animal.Remove(animal);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+
+    internal record struct NewStruct(object Item1, object Item2)
+    {
+        public static implicit operator (object, object)(NewStruct value)
+        {
+            return (value.Item1, value.Item2);
+        }
+
+        public static implicit operator NewStruct((object, object) value)
+        {
+            return new NewStruct(value.Item1, value.Item2);
+        }
+    }
+}
