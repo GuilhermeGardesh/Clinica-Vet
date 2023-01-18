@@ -1,4 +1,4 @@
-﻿namespace Clinica_Vet.Migrations
+﻿namespace ClinicaVet.GestaoVeterinaria.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

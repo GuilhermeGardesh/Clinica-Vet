@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Clinica Vet</title>
+    <title>@ViewData["Title"] - ClinicaVet.GestaoVeterinaria</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Clinica_Vet.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ClinicaVet.GestaoVeterinaria.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -20,7 +20,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Animais</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MedicoVeterinario" asp-action="Index">Doutores</a>
                         </li>
                     </ul>
                 </div>
@@ -35,7 +38,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Clinica Vet - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - ClinicaVet.GestaoVeterinaria - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

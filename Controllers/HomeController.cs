@@ -1,8 +1,8 @@
-﻿using Clinica_Vet.Models;
+﻿using ClinicaVet.GestaoVeterinaria.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Clinica_Vet.Controllers
+namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
     public class HomeController : Controller
     {

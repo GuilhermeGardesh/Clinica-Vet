@@ -1,4 +1,4 @@
-namespace Clinica_Vet.Models
+namespace ClinicaVet.GestaoVeterinaria.Models
 {
     public class ErrorViewModel
     {

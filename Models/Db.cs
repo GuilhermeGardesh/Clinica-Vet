@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace Clinica_Vet.Models
+namespace ClinicaVet.GestaoVeterinaria.Models
 {
     public class Db : DbContext
     {

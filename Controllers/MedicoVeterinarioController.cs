@@ -1,8 +1,8 @@
-﻿using Clinica_Vet.Models;
+﻿using ClinicaVet.GestaoVeterinaria.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 
-namespace Clinica_Vet.Controllers
+namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
     public class MedicoVeterinarioController : Controller
     {

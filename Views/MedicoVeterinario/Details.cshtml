@@ -1,4 +1,4 @@
-﻿@model ClinicaVet.GestaoVeterinaria.Models.Animal
+﻿@model ClinicaVet.GestaoVeterinaria.Models.MedicoVeterinario
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +7,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Animal</h4>
+    <h4>MedicoVeterinario</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -23,26 +23,32 @@
             @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Especie)
+            @Html.DisplayNameFor(model => model.Descricao)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Especie)
+            @Html.DisplayFor(model => model.Descricao)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Raca)
+            @Html.DisplayNameFor(model => model.NumeroDeIncricaoCRMV)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Raca)
+            @Html.DisplayFor(model => model.NumeroDeIncricaoCRMV)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Idade)
+            @Html.DisplayNameFor(model => model.LocalDoCRMV)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Idade)
+            @Html.DisplayFor(model => model.LocalDoCRMV)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CPF)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CPF)
         </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { idMedico = Model.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>

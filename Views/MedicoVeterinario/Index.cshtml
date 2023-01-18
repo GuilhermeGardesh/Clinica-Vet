@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ClinicaVet.GestaoVeterinaria.Models.MedicoVeterinario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Criar novo Cadastro</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroDeIncricaoCRMV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocalDoCRMV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroDeIncricaoCRMV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocalDoCRMV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPF)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { idMedico = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { idMedico = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { idMedico = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
