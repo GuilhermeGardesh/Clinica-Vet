@@ -1,7 +1,8 @@
 ﻿@model ClinicaVet.GestaoVeterinaria.Models.Animal
 
 @{
-    ViewData["Title"] = "Cadastro";
+    ViewData["Title"] = "Pets";
+    ViewData["View"] = " - Cadastro";
 }
 
 <h1>Cadastrando</h1>
@@ -28,9 +29,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Idade" class="control-label"></label>
-                <input asp-for="Idade" class="form-control" min="0"/>
+                <input asp-for="Idade" class="form-control" min="0" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
@@ -38,9 +39,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Retornar à lista de Pets cadastrados</a>
+    <a asp-action="Index">Retornar</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -99,17 +99,4 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             }
         }
     }
-
-    internal record struct NewStruct(object Item1, object Item2)
-    {
-        public static implicit operator (object, object)(NewStruct value)
-        {
-            return (value.Item1, value.Item2);
-        }
-
-        public static implicit operator NewStruct((object, object) value)
-        {
-            return new NewStruct(value.Item1, value.Item2);
-        }
-    }
 }

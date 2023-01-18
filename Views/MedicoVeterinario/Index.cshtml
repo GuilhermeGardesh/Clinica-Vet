@@ -1,22 +1,19 @@
 ﻿@model IEnumerable<ClinicaVet.GestaoVeterinaria.Models.MedicoVeterinario>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vets";
 }
 
-<h1>Index</h1>
+<h1>Veterinários</h1>
 
 <p>
-    <a asp-action="Create">Criar novo Cadastro</a>
+    <a asp-action="Create">Novo Cadastro</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NumeroDeIncricaoCRMV)
@@ -31,29 +28,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroDeIncricaoCRMV)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocalDoCRMV)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CPF)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { idMedico = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { idMedico = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { idMedico = item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroDeIncricaoCRMV)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocalDoCRMV)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPF)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { idMedico = item.Id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { idMedico = item.Id }) |
+                    @Html.ActionLink("Deletar", "Delete", new { idMedico = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

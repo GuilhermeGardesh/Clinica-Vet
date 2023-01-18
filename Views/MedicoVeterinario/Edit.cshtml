@@ -1,7 +1,8 @@
 ﻿@model ClinicaVet.GestaoVeterinaria.Models.MedicoVeterinario
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Vets";
+    ViewData["View"] = " - Edição";
 }
 
 <h1>Edit</h1>
@@ -54,5 +55,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
