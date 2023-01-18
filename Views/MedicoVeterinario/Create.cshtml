@@ -5,9 +5,9 @@
     ViewData["View"] = " - Cadastrar";
 }
 
-<h1>Create</h1>
+<h1>Cadastrando</h1>
 
-<h4>MedicoVeterinario</h4>
+<h4>Médico Veterinário</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -38,15 +38,15 @@
                 <textarea asp-for="Descricao" class="form-control"></textarea>
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-2">
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retornar</a>
 </div>
 
 @section Scripts {

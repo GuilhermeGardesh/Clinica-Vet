@@ -16,6 +16,7 @@ namespace ClinicaVet.GestaoVeterinaria.Models
         [StringLength(35)]
         public string Nome { get; set; }
 
+        [DisplayName("Descrição")]
         [StringLength(300)]
         public string Descricao { get; set; }
 
