@@ -4,15 +4,16 @@
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using ClinicaVet.GestaoVeterinaria.Data;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ClinicaVet.GestaoVeterinaria.Models.Db>
+    internal sealed class Configuration : DbMigrationsConfiguration<ClinicaVetDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ClinicaVet.GestaoVeterinaria.Models.Db context)
+        protected override void Seed(ClinicaVetDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

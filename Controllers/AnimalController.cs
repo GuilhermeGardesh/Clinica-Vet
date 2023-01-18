@@ -1,4 +1,5 @@
-﻿using ClinicaVet.GestaoVeterinaria.Models;
+﻿using ClinicaVet.GestaoVeterinaria.Data;
+using ClinicaVet.GestaoVeterinaria.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 
@@ -6,11 +7,11 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
     public class AnimalController : Controller
     {
-        public readonly Db _db;
+        public readonly ClinicaVetDbContext _db;
 
         public AnimalController()
         {
-            _db = new Db();
+            _db = new ClinicaVetDbContext();
         }
 
         // GET: AnimalController
