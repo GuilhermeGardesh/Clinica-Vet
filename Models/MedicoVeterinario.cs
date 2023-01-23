@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using KeyAttribute = System.ComponentModel.DataAnnotations.KeyAttribute;
-using TableAttribute = System.ComponentModel.DataAnnotations.Schema.TableAttribute;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
