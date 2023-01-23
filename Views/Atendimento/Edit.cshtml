@@ -1,0 +1,64 @@
+﻿@model ClinicaVet.GestaoVeterinaria.Models.Atendimento
+
+@{
+    ViewData["Title"] = "Atendimentos";
+    ViewData["View"] = " - Edição";
+}
+
+<h1>Editar</h1>
+
+<h4>Atendimento nº: Model.id</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Diagnostico" class="control-label"></label>
+                <input asp-for="Diagnostico" class="form-control" />
+                <span asp-validation-for="Diagnostico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observacoes" class="control-label"></label>
+                <input asp-for="Observacoes" class="form-control" />
+                <span asp-validation-for="Observacoes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AtendimentoIniciado" class="control-label"></label>
+                <input asp-for="AtendimentoIniciado" class="form-control" />
+                <span asp-validation-for="AtendimentoIniciado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AtendimentoFinalizado" class="control-label"></label>
+                <input asp-for="AtendimentoFinalizado" class="form-control" />
+                <span asp-validation-for="AtendimentoFinalizado" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Finalizado" /> @Html.DisplayNameFor(model => model.Finalizado)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAnimal" class="control-label"></label>
+                <input asp-for="IdAnimal" class="form-control" />
+                <span asp-validation-for="IdAnimal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdMedicoVeterinario" class="control-label"></label>
+                <input asp-for="IdMedicoVeterinario" class="form-control" />
+                <span asp-validation-for="IdMedicoVeterinario" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retornar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

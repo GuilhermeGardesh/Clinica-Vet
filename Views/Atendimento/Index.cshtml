@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ClinicaVet.GestaoVeterinaria.Models.Atendimento>
+
+@{
+    ViewData["Title"] = "Atendimentos";
+}
+
+<h1>Atendimentos</h1>
+
+<p>
+    <a asp-action="IniciarAtendimento">Gerar novo Atendimento</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AtendimentoIniciado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AtendimentoFinalizado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAnimal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdMedicoVeterinario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AtendimentoIniciado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AtendimentoFinalizado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdAnimal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdMedicoVeterinario)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { idAtendimento = item.id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { idAtendimento = item.id }) |
+                    @Html.ActionLink("Excluir", "Delete", new { idAtendimento = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

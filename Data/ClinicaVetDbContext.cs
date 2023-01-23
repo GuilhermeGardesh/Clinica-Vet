@@ -9,5 +9,6 @@ namespace ClinicaVet.GestaoVeterinaria.Data
 
         public DbSet<Animal> Animal { get; set; }
         public DbSet<MedicoVeterinario> MedicoVeterinario { get; set; }
+        public DbSet<Atendimento> Atendimento { get; set; }
     }
 }
