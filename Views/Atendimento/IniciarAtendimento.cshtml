@@ -21,24 +21,24 @@
 
             <div class="form-group">
                 <label asp-for="IdMedicoVeterinario" class="control-label"></label>
-                <div>
-                    @Html.DropDownList("medicosParaAtendimento", String.Empty)
-                    <span asp-validation-for="IdMedicoVeterinario" class="text-danger"></span>
-                </div>
+                <select asp-for="IdMedicoVeterinario" class="form-control" asp-items="ViewBag.medicosParaAtendimento">
+                    <option selected value=""></option>
+                </select>
+                <span asp-validation-for="IdMedicoVeterinario" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="IdAnimal" class="control-label"></label>
-                <div>
-                    @Html.DropDownList("animaisParaAtendimento", String.Empty)
-                    <span asp-validation-for="IdAnimal" class="text-danger"></span>
-                </div>
+                <select asp-for="IdAnimal" class="form-control" asp-items="ViewBag.animaisParaAtendimento">
+                    <option selected value=""></option>
+                </select>
+                <span asp-validation-for="IdAnimal" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Observacoes" class="control-label"></label>
-                <textarea asp-for="Observacoes" class="form-control"></textarea>
-                <span asp-validation-for="Observacoes" class="text-danger"></span>
+                <label asp-for="ObservacoesIniciais" class="control-label"></label>
+                <textarea asp-for="ObservacoesIniciais" class="form-control"></textarea>
+                <span asp-validation-for="ObservacoesIniciais" class="text-danger"></span>
             </div>
             <div class="form-group mt-2">
                 <input type="submit" value="Iniciar" class="btn btn-success" />

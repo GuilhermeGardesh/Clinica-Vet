@@ -1,0 +1,60 @@
+﻿@model ClinicaVet.GestaoVeterinaria.ViewModels.FinalizarAtendimentoViewModel
+
+@{
+    ViewData["Title"] = "Finalizar Atendimento";
+}
+
+<h1>Finalizar Atendimento</h1>
+
+<h4>Atendimento nº: @Model.IdAtendimento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="FinalizarAtendimento">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <dl class="row">
+                <dt class="col-sm-5">
+                    @Html.DisplayNameFor(model => model.NomeMedicoVeterinario)
+                </dt>
+                <dd class="col-sm-7">
+                    @Html.DisplayFor(model => model.NomeMedicoVeterinario)
+                </dd>
+                <dt class="col-sm-5">
+                    @Html.DisplayNameFor(model => model.NomeAnimal)
+                </dt>
+                <dd class="col-sm-7">
+                    @Html.DisplayFor(model => model.NomeAnimal)
+                </dd>
+            </dl>
+
+            <div class="form-group col-sm-10">
+                <label asp-for="Diagnostico" class="control-label"></label>
+                <textarea asp-for="Diagnostico" class="form-control"></textarea>
+                <span asp-validation-for="Diagnostico" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-sm-10">
+                <label asp-for="ObservacoesFinais" class="control-label"></label>
+                <textarea asp-for="ObservacoesFinais" class="form-control"></textarea>
+                <span asp-validation-for="ObservacoesFinais" class="text-danger"></span>
+            </div>
+
+            @Html.HiddenFor(model => model.IdAtendimento)
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Finalizar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retornar</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

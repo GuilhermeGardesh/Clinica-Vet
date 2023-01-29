@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ClinicaVet.GestaoVeterinaria.ViewModels;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,38 +10,57 @@ namespace ClinicaVet.GestaoVeterinaria.Models
     {
         [Key]
         [DisplayName("Identificador")]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Diagnóstico")]
         [StringLength(300)]
         public string Diagnostico { get; set; }
 
-        [DisplayName("Observações")]
+        [DisplayName("Observações de entrada")]
         [StringLength(300)]
-        public string Observacoes { get; set; }
+        [Required(ErrorMessage = "Obrigatório informar motivo da vinda do Pet.", AllowEmptyStrings = false)]
+        public string? ObservacoesIniciais { get; set; }
 
-        [DisplayFormat(DataFormatString = "dd/mm/yyyy HH:mm:ss")]
+        [DisplayName("Observações pós atendimento")]
+        [StringLength(400)]
+        public string? ObservacoesFinais { get; set; }
+
+        [DisplayFormat(DataFormatString = "dd/MM/yyyy HH:mm:ss")]
         [DisplayName("Início do Atendimento")]
         public DateTime AtendimentoIniciado { get; set; }
 
-        [DisplayFormat(DataFormatString = "dd/mm/yyyy HH:mm:ss")]
+        [DisplayFormat(DataFormatString = "dd/MM/yyyy HH:mm:ss")]
         [DisplayName("Fim do Atendimento")]
-        public DateTime AtendimentoFinalizado { get; set; }
+        public DateTime? AtendimentoFinalizado { get; set; }
 
         public bool Finalizado { get; set; }
 
         //ForeignKey de Animal
         [DisplayName("Pet")]
         [ForeignKey("Animal")]
-        [Required(ErrorMessage = "Em um atendimento deve haver um animal cadastrado.", AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Deve haver um animal cadastrado para o Atendimento.", AllowEmptyStrings = false)]
         public int IdAnimal { get; set; }
         public Animal Animal { get; set; }
 
         //ForeignKey de Médico
         [DisplayName("Médico")]
         [ForeignKey("MedicoVeterinario")]
-        [Required(ErrorMessage = "Em um atendimento deve haver um Médico Veterinário cadastrado.", AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Deve haver um Médico Veterinário cadastrado para o Atendimento.", AllowEmptyStrings = false)]
         public int IdMedicoVeterinario { get; set; }
         public MedicoVeterinario MedicoVeterinario { get; set; }
+
+        public void IniciarAtendimento()
+        {
+            AtendimentoIniciado = DateTime.Now;
+            Finalizado = false;
+        }
+
+        public void FinalizarAtendimento(FinalizarAtendimentoViewModel finalizarAtendimentoViewModel)
+        {
+            AtendimentoFinalizado = DateTime.Now;
+            Finalizado = true;
+            ObservacoesFinais = finalizarAtendimentoViewModel.ObservacoesFinais;
+            Diagnostico = finalizarAtendimentoViewModel.Diagnostico;
+        }
     }
 }

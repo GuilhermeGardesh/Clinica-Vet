@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AtendimentoIniciado)
@@ -28,6 +28,7 @@
                 @Html.DisplayNameFor(model => model.IdMedicoVeterinario)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,25 +36,37 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.id)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AtendimentoIniciado)
+                    @item.AtendimentoIniciado
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AtendimentoFinalizado)
+                    @item.AtendimentoFinalizado
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdAnimal)
+                    @Html.DisplayFor(modelItem => item.Animal.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdMedicoVeterinario)
+                    @Html.DisplayFor(modelItem => item.MedicoVeterinario.Nome)
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { idAtendimento = item.id }) |
-                    @Html.ActionLink("Detalhes", "Details", new { idAtendimento = item.id }) |
-                    @Html.ActionLink("Excluir", "Delete", new { idAtendimento = item.id })
+                    @Html.ActionLink("Editar", "Edit", new { idAtendimento = item.Id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { idAtendimento = item.Id }) |
+                    @Html.ActionLink("Excluir", "Delete", new { idAtendimento = item.Id })
                 </td>
+                @if (item.Finalizado)
+                {
+                    <td>
+                        <button class="btn btn-success" disabled>Finalizar</button>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Finalizar", "FinalizarAtendimento", new { idAtendimento = item.Id}, new {@class="btn btn-success"})
+                    </td>
+                }
             </tr>
         }
     </tbody>
