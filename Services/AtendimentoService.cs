@@ -1,10 +1,11 @@
-﻿using ClinicaVet.GestaoVeterinaria.Models;
+﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
+using ClinicaVet.GestaoVeterinaria.Models;
 using ClinicaVet.GestaoVeterinaria.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ClinicaVet.GestaoVeterinaria.Services
 {
-    public class AtendimentoService
+    public class AtendimentoService : IAtendimentoService
     {
         public AtendimentoService() { }
 
@@ -18,13 +19,13 @@ namespace ClinicaVet.GestaoVeterinaria.Services
             return true;
         }
 
-        internal bool AtendimentoFinalizadoValido(FinalizarAtendimentoViewModel finalizarAtendimentoViewModel)
+        public bool AtendimentoFinalizadoValido(FinalizarAtendimentoViewModel finalizarAtendimentoViewModel)
             => (String.IsNullOrEmpty(finalizarAtendimentoViewModel.Diagnostico) || String.IsNullOrEmpty(finalizarAtendimentoViewModel.ObservacoesFinais)) ? false : true;
 
         public void FinalizarAtendimento(Atendimento atendimento, FinalizarAtendimentoViewModel finalizarAtendimentoViewModel)
             => atendimento.FinalizarAtendimento(finalizarAtendimentoViewModel);
 
-        internal bool IdAtendimentoValido(int idAtendimento)
+        public bool IdAtendimentoValido(int idAtendimento)
             => idAtendimento > 0;
     }
 }

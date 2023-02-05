@@ -1,6 +1,6 @@
 ﻿using ClinicaVet.GestaoVeterinaria.Data;
+using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
-using ClinicaVet.GestaoVeterinaria.Services;
 using ClinicaVet.GestaoVeterinaria.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +11,14 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
     public class AtendimentoController : Controller
     {
         private readonly ClinicaVetDbContext _db;
-        private readonly AtendimentoService _atendimentoService;
+        private readonly IAtendimentoService _atendimentoService;
 
-        public AtendimentoController()
+        public AtendimentoController(IAtendimentoService atendimentoService)
         {
             _db = new ClinicaVetDbContext();
-            _atendimentoService = new AtendimentoService();
+            _atendimentoService = atendimentoService;
         }
+
         // GET: AtendimentoController
         public ActionResult Index()
         {
