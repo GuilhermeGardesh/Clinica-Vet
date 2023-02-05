@@ -1,5 +1,4 @@
-﻿using ClinicaVet.GestaoVeterinaria.ViewModels;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -55,12 +54,12 @@ namespace ClinicaVet.GestaoVeterinaria.Models
             Finalizado = false;
         }
 
-        public void FinalizarAtendimento(FinalizarAtendimentoViewModel finalizarAtendimentoViewModel)
+        public void FinalizarAtendimento(string diagnostico, string observacoesFinais)
         {
             AtendimentoFinalizado = DateTime.Now;
             Finalizado = true;
-            ObservacoesFinais = finalizarAtendimentoViewModel.ObservacoesFinais;
-            Diagnostico = finalizarAtendimentoViewModel.Diagnostico;
+            Diagnostico = diagnostico;
+            ObservacoesFinais = observacoesFinais;
         }
     }
 }

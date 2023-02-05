@@ -10,7 +10,7 @@ namespace ClinicaVet.GestaoVeterinaria.ViewModels
         [DisplayName("Observações pós atendimento")]
         [StringLength(400)]
         [Required(ErrorMessage = "As observações para o pós atendimento são obrigatórias.", AllowEmptyStrings = false)]
-        public string? ObservacoesFinais { get; set; }
+        public string ObservacoesFinais { get; set; }
 
         [DisplayName("Diagnóstico")]
         [StringLength(300)]

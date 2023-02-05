@@ -1,7 +1,6 @@
 ﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
 using ClinicaVet.GestaoVeterinaria.ViewModels;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ClinicaVet.GestaoVeterinaria.Services
 {
@@ -22,8 +21,8 @@ namespace ClinicaVet.GestaoVeterinaria.Services
         public bool AtendimentoFinalizadoValido(FinalizarAtendimentoViewModel finalizarAtendimentoViewModel)
             => (String.IsNullOrEmpty(finalizarAtendimentoViewModel.Diagnostico) || String.IsNullOrEmpty(finalizarAtendimentoViewModel.ObservacoesFinais)) ? false : true;
 
-        public void FinalizarAtendimento(Atendimento atendimento, FinalizarAtendimentoViewModel finalizarAtendimentoViewModel)
-            => atendimento.FinalizarAtendimento(finalizarAtendimentoViewModel);
+        public void FinalizarAtendimento(Atendimento atendimento, string diagnostico, string observacoesFinais)
+            => atendimento.FinalizarAtendimento(diagnostico, observacoesFinais);
 
         public bool IdAtendimentoValido(int idAtendimento)
             => idAtendimento > 0;

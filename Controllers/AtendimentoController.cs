@@ -100,7 +100,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             var atendimento = _db.Atendimento.Find(atendimentoViewModel.IdAtendimento);
             try
             {
-                _atendimentoService.FinalizarAtendimento(atendimento, atendimentoViewModel);
+                _atendimentoService.FinalizarAtendimento(atendimento, atendimentoViewModel.Diagnostico, atendimentoViewModel.ObservacoesFinais);
                 _db.Entry(atendimento).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));

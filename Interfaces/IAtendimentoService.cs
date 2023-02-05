@@ -7,7 +7,7 @@ namespace ClinicaVet.GestaoVeterinaria.Interfaces
     {
         bool AtendimentoIniciadoValido(Atendimento atendimento);
         bool AtendimentoFinalizadoValido(FinalizarAtendimentoViewModel finalizarAtendimentoViewModel);
-        void FinalizarAtendimento(Atendimento atendimento, FinalizarAtendimentoViewModel finalizarAtendimentoViewModel);
+        void FinalizarAtendimento(Atendimento atendimento, string diagnostico, string observacoesFinais);
         bool IdAtendimentoValido(int idAtendimento);
 
     }
