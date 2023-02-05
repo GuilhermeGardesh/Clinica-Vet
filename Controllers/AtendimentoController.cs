@@ -2,7 +2,6 @@
 using ClinicaVet.GestaoVeterinaria.Models;
 using ClinicaVet.GestaoVeterinaria.Services;
 using ClinicaVet.GestaoVeterinaria.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data.Entity;

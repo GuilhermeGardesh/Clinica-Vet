@@ -31,29 +31,50 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Diagnostico" class="control-label"></label>
-                <input asp-for="Diagnostico" class="form-control" />
-                <span asp-validation-for="Diagnostico" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="ObservacoesIniciais" class="control-label"></label>
                 <input asp-for="ObservacoesIniciais" class="form-control" />
                 <span asp-validation-for="ObservacoesIniciais" class="text-danger"></span>
             </div>
+
+            @if (Model.Finalizado)
+            {
+                <div class="form-group">
+                    <label asp-for="Diagnostico" class="control-label"></label>
+                    <textarea asp-for="Diagnostico" class="form-control"></textarea>
+                    <span asp-validation-for="Diagnostico" class="text-danger"></span>
+                </div>
+            }
+
+
+            @if (Model.Finalizado)
+            {
+                <div class="form-group">
+                    <label asp-for="ObservacoesFinais" class="control-label"></label>
+                    <textarea asp-for="ObservacoesFinais" class="form-control"></textarea>
+                    <span asp-validation-for="ObservacoesFinais" class="text-danger"></span>
+                </div>
+            }
+
+
             <div class="form-group">
                 <label asp-for="AtendimentoIniciado" class="control-label"></label>
-                <input asp-for="AtendimentoIniciado" class="form-control" />
-                <span asp-validation-for="AtendimentoIniciado" class="text-danger"></span>
+                <input asp-for="AtendimentoIniciado" disabled="True" class="form-control" />
             </div>
-            <div class="form-group">
-                <label asp-for="AtendimentoFinalizado" class="control-label"></label>
-                <input asp-for="AtendimentoFinalizado" class="form-control" />
-                <span asp-validation-for="AtendimentoFinalizado" class="text-danger"></span>
-            </div>
+
+            @if (Model.Finalizado)
+            {
+                <div class="form-group">
+                    <label asp-for="AtendimentoFinalizado" class="control-label"></label>
+                    <input asp-for="AtendimentoFinalizado" disabled="True" class="form-control" />
+                </div>
+            }
+
             <div class="form-group mt-2">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
             @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.AtendimentoIniciado)
+            @Html.HiddenFor(model => model.AtendimentoFinalizado)
         </form>
     </div>
 </div>
@@ -63,5 +84,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
