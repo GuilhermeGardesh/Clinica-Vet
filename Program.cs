@@ -1,7 +1,11 @@
+using ClinicaVet.GestaoVeterinaria.Interfaces;
+using ClinicaVet.GestaoVeterinaria.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IAtendimentoService, AtendimentoService>();
 
 var app = builder.Build();
 
