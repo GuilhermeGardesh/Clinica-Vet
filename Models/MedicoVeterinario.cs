@@ -5,16 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
     [Table("MedicoVeterinario")]
-    public class MedicoVeterinario
+    public class MedicoVeterinario : ModelBaseUtilizadores
     {
-        [Key]
-        [DisplayName("Identificador")]
-        public int Id { get; set; }
-
-        [Required(ErrorMessage = "Nome do médico deve ser preenchido corretamente", AllowEmptyStrings = false)]
-        [StringLength(35)]
-        public string Nome { get; set; }
-
         [DisplayName("Descrição")]
         [StringLength(300)]
         public string Descricao { get; set; }
