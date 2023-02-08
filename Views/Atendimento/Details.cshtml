@@ -8,7 +8,7 @@
 <h1>Detalhes</h1>
 
 <div>
-    <h4>Atendimento nº: Model.id</h4>
+    <h4>Atendimento nº: @Model.Id</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -27,13 +27,13 @@
             @Html.DisplayNameFor(model => model.AtendimentoIniciado)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AtendimentoIniciado)
+            @Model.AtendimentoIniciado
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AtendimentoFinalizado)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AtendimentoFinalizado)
+            @Model.AtendimentoFinalizado
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Finalizado)
