@@ -5,12 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
     [Table("Atendimento")]
-    public class Atendimento
+    public class Atendimento : ModelBaseProcessos
     {
-        [Key]
-        [DisplayName("Identificador")]
-        public int Id { get; set; }
-
         [DisplayName("Diagnóstico")]
         [StringLength(300)]
         public string Diagnostico { get; set; }

@@ -5,16 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
     [Table("Animal")]
-    public class Animal
+    public class Animal : ModelBaseUtilizadores
     {
-        [Key]
-        [DisplayName("Identificador")]
-        public int Id { get; set; }
-
-        [Required(ErrorMessage = "O nome do pet é obrigatório", AllowEmptyStrings = false)]
-        [StringLength(20)]
-        public string Nome { get; set; }
-
         [Required(ErrorMessage = "A espécie do pet é obrigatória", AllowEmptyStrings = false)]
         [DisplayName("Espécie")]
         [StringLength(20)]
