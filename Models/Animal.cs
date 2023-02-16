@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
     [Table("Animal")]
-    public class Animal : ModelBaseUtilizadores
+    public class Animal : ModelBaseComplexa
     {
         [Required(ErrorMessage = "A espécie do pet é obrigatória", AllowEmptyStrings = false)]
         [DisplayName("Espécie")]
@@ -19,5 +19,10 @@ namespace ClinicaVet.GestaoVeterinaria.Models
 
         [DisplayName("Cadastro Ativo")]
         public bool Ativo { get; set; }
+
+        public int ProprietarioId { get; set; }
+
+        //Propriedade de navegação
+        public Proprietario Proprietario { get; set; }
     }
 }

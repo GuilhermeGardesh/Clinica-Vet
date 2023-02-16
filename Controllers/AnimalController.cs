@@ -1,30 +1,29 @@
-﻿using ClinicaVet.GestaoVeterinaria.Data;
+﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
     public class AnimalController : Controller
     {
-        public readonly ClinicaVetDbContext _db;
+        private readonly IAnimalRepository _animalRepository;
 
-        public AnimalController()
+        public AnimalController(IAnimalRepository animalRepository)
         {
-            _db = new ClinicaVetDbContext();
+            _animalRepository = animalRepository;
         }
 
         // GET: AnimalController
         public ActionResult Index()
         {
-            var animais = _db.Animal.ToList();
+            var animais = _animalRepository.ObterTodos();
             return View(animais);
         }
 
         // GET: AnimalController/Details/5
         public ActionResult Details(int idAnimal)
         {
-            var animal = _db.Animal.Where(animal => animal.Id == idAnimal).FirstOrDefault();
+            var animal = _animalRepository.ObterPorId(idAnimal);
             return View(animal);
         }
 
@@ -41,8 +40,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             try
             {
-                _db.Animal.Add(animal);
-                _db.SaveChanges();
+                _animalRepository.Inserir(animal);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -54,7 +52,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: AnimalController/Edit/5
         public ActionResult Edit(int idAnimal)
         {
-            var animal = _db.Animal.Where(animal => animal.Id == idAnimal).First();
+            var animal = _animalRepository.ObterPorId(idAnimal);
             return View(animal);
         }
 
@@ -65,8 +63,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             try
             {
-                _db.Entry(animal).State = EntityState.Modified;
-                _db.SaveChanges();
+                _animalRepository.Atualizar(animal);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -78,7 +75,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: AnimalController/Delete/5
         public ActionResult Delete(int idAnimal)
         {
-            var animal = _db.Animal.Where(animal => animal.Id == idAnimal).FirstOrDefault();
+            var animal = _animalRepository.ObterPorId(idAnimal);
             return View(animal);
         }
 
@@ -89,9 +86,8 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             try
             {
-                var animal = _db.Animal.Find(idAnimal);
-                _db.Animal.Remove(animal);
-                _db.SaveChanges();
+                var animal = _animalRepository.ObterPorId(idAnimal);
+                _animalRepository.Deletar(animal);
                 return RedirectToAction(nameof(Index));
             }
             catch

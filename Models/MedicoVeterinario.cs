@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
     [Table("MedicoVeterinario")]
-    public class MedicoVeterinario : ModelBaseUtilizadores
+    public class MedicoVeterinario : ModelBaseComplexa
     {
         [DisplayName("Descrição")]
         [StringLength(300)]

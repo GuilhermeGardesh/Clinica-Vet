@@ -1,29 +1,28 @@
-﻿using ClinicaVet.GestaoVeterinaria.Data;
+﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
     public class MedicoVeterinarioController : Controller
     {
-        public readonly ClinicaVetDbContext _db;
+        private readonly IMedicoVeterinarioRepository _medicoVeterinarioRepository;
 
-        public MedicoVeterinarioController()
+        public MedicoVeterinarioController(IMedicoVeterinarioRepository medicoVeterinarioRepository)
         {
-            _db = new ClinicaVetDbContext();
+            _medicoVeterinarioRepository = medicoVeterinarioRepository;
         }
         // GET: MedicoVeterinarioController
         public ActionResult Index()
         {
-            var medicosVeterinarios = _db.MedicoVeterinario.ToList();
+            var medicosVeterinarios = _medicoVeterinarioRepository.ObterTodos();
             return View(medicosVeterinarios);
         }
 
         // GET: MedicoVeterinarioController/Details/5
         public ActionResult Details(int idMedico)
         {
-            var medico = _db.MedicoVeterinario.Find(idMedico);
+            var medico = _medicoVeterinarioRepository.ObterPorId(idMedico);
             return View(medico);
         }
 
@@ -40,8 +39,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             try
             {
-                _db.MedicoVeterinario.Add(medico);
-                _db.SaveChanges();
+                _medicoVeterinarioRepository.Inserir(medico);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -53,7 +51,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: MedicoVeterinarioController/Edit/5
         public ActionResult Edit(int idMedico)
         {
-            var medico = _db.MedicoVeterinario.Find(idMedico);
+            var medico = _medicoVeterinarioRepository.ObterPorId(idMedico);
             return View(medico);
         }
 
@@ -64,8 +62,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             try
             {
-                _db.Entry(medico).State = EntityState.Modified;
-                _db.SaveChanges();
+                _medicoVeterinarioRepository.Atualizar(medico);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -77,7 +74,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: MedicoVeterinarioController/Delete/5
         public ActionResult Delete(int idMedico)
         {
-            var medico = _db.MedicoVeterinario.Find(idMedico);
+            var medico = _medicoVeterinarioRepository.ObterPorId(idMedico);
             return View(medico);
         }
 
@@ -88,9 +85,8 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             try
             {
-                var medico = _db.MedicoVeterinario.Find(idMedico);
-                _db.MedicoVeterinario.Remove(medico);
-                _db.SaveChanges();
+                var medico = _medicoVeterinarioRepository.ObterPorId(idMedico);
+                _medicoVeterinarioRepository.Deletar(medico);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
-    public abstract class ModelBaseProcessos
+    public abstract class ModelBase
     {
         [Key]
         [DisplayName("Identificador")]

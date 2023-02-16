@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ClinicaVet.GestaoVeterinaria.Models
 {
     [Table("Atendimento")]
-    public class Atendimento : ModelBaseProcessos
+    public class Atendimento : ModelBase
     {
         [DisplayName("Diagnóstico")]
         [StringLength(300)]

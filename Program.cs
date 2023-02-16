@@ -1,11 +1,19 @@
+using ClinicaVet.GestaoVeterinaria.Data;
 using ClinicaVet.GestaoVeterinaria.Interfaces;
+using ClinicaVet.GestaoVeterinaria.Repositories;
 using ClinicaVet.GestaoVeterinaria.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAtendimentoService, AtendimentoService>();
+builder.Services.AddScoped<IProprietarioService, ProprietarioService>();
+builder.Services.AddScoped<IProprietarioRepository, ProprietarioRepository>();
+
+builder.Services.AddDbContext<ClinicaVetDbContext>(
+       options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

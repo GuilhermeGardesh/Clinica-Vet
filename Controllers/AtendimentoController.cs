@@ -1,31 +1,34 @@
-﻿using ClinicaVet.GestaoVeterinaria.Data;
-using ClinicaVet.GestaoVeterinaria.Interfaces;
+﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
 using ClinicaVet.GestaoVeterinaria.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Data.Entity;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
     public class AtendimentoController : Controller
     {
-        private readonly ClinicaVetDbContext _db;
         private readonly IAtendimentoService _atendimentoService;
+        private readonly IAtendimentoRepository _atendimentoRepository;
+        private readonly IAnimalRepository _animalRepository;
+        private readonly IMedicoVeterinarioRepository _medicoVeterinarioRepository;
 
-        public AtendimentoController(IAtendimentoService atendimentoService)
+        public AtendimentoController(
+            IAtendimentoService atendimentoService,
+            IAtendimentoRepository atendimentoRepository,
+            IAnimalRepository animalRepository,
+            IMedicoVeterinarioRepository medicoVeterinarioRepository)
         {
-            _db = new ClinicaVetDbContext();
             _atendimentoService = atendimentoService;
+            _atendimentoRepository = atendimentoRepository;
+            _animalRepository = animalRepository;
+            _medicoVeterinarioRepository = medicoVeterinarioRepository;
         }
 
         // GET: AtendimentoController
         public ActionResult Index()
         {
-            var atendimentos = _db.Atendimento
-                                .Include(atendimento => atendimento.Animal)
-                                .Include(atendimento => atendimento.MedicoVeterinario)
-                                .ToList();
+            var atendimentos = _atendimentoRepository.ObterAtendimentosDetalhes();
             return View(atendimentos);
         }
 
@@ -34,15 +37,15 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             if (!_atendimentoService.IdAtendimentoValido(idAtendimento))
                 return RedirectToAction(nameof(Index));
-            var atendimento = _db.Atendimento.Find(idAtendimento);
+            var atendimento = _atendimentoRepository.ObterPorId(idAtendimento);
             return View(atendimento);
         }
 
         // GET: AtendimentoController/IniciarAtendimento
         public ActionResult IniciarAtendimento()
         {
-            ViewBag.medicosParaAtendimento = new SelectList(_db.MedicoVeterinario, "Id", "Nome");
-            ViewBag.animaisParaAtendimento = new SelectList(_db.Animal, "Id", "Nome");
+            ViewBag.medicosParaAtendimento = new SelectList(_medicoVeterinarioRepository.ObterTodos(), "Id", "Nome");
+            ViewBag.animaisParaAtendimento = new SelectList(_animalRepository.ObterTodos(), "Id", "Nome");
             return View();
         }
 
@@ -51,8 +54,8 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IniciarAtendimento(Atendimento atendimento)
         {
-            ViewBag.medicosParaAtendimento = new SelectList(_db.MedicoVeterinario, "Id", "Nome");
-            ViewBag.animaisParaAtendimento = new SelectList(_db.Animal, "Id", "Nome");
+            ViewBag.medicosParaAtendimento = new SelectList(_medicoVeterinarioRepository.ObterTodos(), "Id", "Nome");
+            ViewBag.animaisParaAtendimento = new SelectList(_animalRepository.ObterTodos(), "Id", "Nome");
             if (!_atendimentoService.AtendimentoIniciadoValido(atendimento))
             {
                 return View(atendimento);
@@ -60,8 +63,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             try
             {
                 atendimento.IniciarAtendimento();
-                _db.Atendimento.Add(atendimento);
-                _db.SaveChanges();
+                _atendimentoRepository.Inserir(atendimento);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -75,10 +77,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             if (!_atendimentoService.IdAtendimentoValido(idAtendimento))
                 return RedirectToAction(nameof(Index));
-            var atendimento = _db.Atendimento
-                .Where(atendimento => atendimento.Id == idAtendimento)
-                .Include(atendimento => atendimento.Animal)
-                .Include(atendimento => atendimento.MedicoVeterinario);
+            var atendimento = _atendimentoRepository.ObterAtendimentoDetalhesPorId(idAtendimento);
 
             var atendimentoVielModel = atendimento.Select(atendimento => new FinalizarAtendimentoViewModel
             {
@@ -97,12 +96,11 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             if (!_atendimentoService.IdAtendimentoValido(atendimentoViewModel.IdAtendimento) || !_atendimentoService.AtendimentoFinalizadoValido(atendimentoViewModel))
                 return View(atendimentoViewModel.IdAtendimento);
 
-            var atendimento = _db.Atendimento.Find(atendimentoViewModel.IdAtendimento);
+            var atendimento = _atendimentoRepository.ObterPorId(atendimentoViewModel.IdAtendimento);
             try
             {
                 _atendimentoService.FinalizarAtendimento(atendimento, atendimentoViewModel.Diagnostico, atendimentoViewModel.ObservacoesFinais);
-                _db.Entry(atendimento).State = EntityState.Modified;
-                _db.SaveChanges();
+                _atendimentoRepository.Atualizar(atendimento);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -114,11 +112,11 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: AtendimentoController/Edit/5
         public ActionResult Edit(int idAtendimento)
         {
-            ViewBag.medicosParaAtendimento = new SelectList(_db.MedicoVeterinario, "Id", "Nome");
-            ViewBag.animaisParaAtendimento = new SelectList(_db.Animal, "Id", "Nome");
+            ViewBag.medicosParaAtendimento = new SelectList(_medicoVeterinarioRepository.ObterTodos(), "Id", "Nome");
+            ViewBag.animaisParaAtendimento = new SelectList(_animalRepository.ObterTodos(), "Id", "Nome");
             if (!_atendimentoService.IdAtendimentoValido(idAtendimento))
                 return RedirectToAction(nameof(Index));
-            var atendimento = _db.Atendimento.Find(idAtendimento);
+            var atendimento = _atendimentoRepository.ObterPorId(idAtendimento);
             return View(atendimento);
         }
 
@@ -127,16 +125,15 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Atendimento atendimento)
         {
-            ViewBag.medicosParaAtendimento = new SelectList(_db.MedicoVeterinario, "Id", "Nome");
-            ViewBag.animaisParaAtendimento = new SelectList(_db.Animal, "Id", "Nome");
             try
             {
-                _db.Entry(atendimento).State = EntityState.Modified;
-                _db.SaveChanges();
+                _atendimentoRepository.Atualizar(atendimento);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewBag.medicosParaAtendimento = new SelectList(_medicoVeterinarioRepository.ObterTodos(), "Id", "Nome");
+                ViewBag.animaisParaAtendimento = new SelectList(_animalRepository.ObterTodos(), "Id", "Nome");
                 return View();
             }
         }
@@ -144,7 +141,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: AtendimentoController/Delete/5
         public ActionResult Delete(int idAtendimento)
         {
-            var atendimento = _db.Atendimento.Find(idAtendimento);
+            var atendimento = _atendimentoRepository.ObterPorId(idAtendimento);
             return View(atendimento);
         }
 
@@ -155,9 +152,8 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         {
             try
             {
-                var atendimento = _db.Atendimento.Find(idAtendimento);
-                _db.Atendimento.Remove(atendimento);
-                _db.SaveChanges();
+                var atendimento = _atendimentoRepository.ObterPorId(idAtendimento);
+                _atendimentoRepository.Deletar(atendimento);
                 return RedirectToAction(nameof(Index));
             }
             catch
