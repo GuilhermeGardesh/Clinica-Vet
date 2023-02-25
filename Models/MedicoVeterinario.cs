@@ -22,7 +22,7 @@ namespace ClinicaVet.GestaoVeterinaria.Models
         public string LocalDoCRMV{ get; set; }
 
         [Required(ErrorMessage = "CPF é obrigatório", AllowEmptyStrings = false)]
-        [StringLength(11)]
+        [StringLength(14, ErrorMessage = "Cpf não pode conter menos de 11 digitos e não mais que 14", MinimumLength = 11)]
         public string CPF{ get; set; }
     }
 }

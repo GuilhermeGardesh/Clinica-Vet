@@ -25,9 +25,9 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int idProprietario)
         {
-            var proprietario = _proprietarioRepository.ObterPorId(id);
+            var proprietario = _proprietarioRepository.ObterPorId(idProprietario);
             return View(proprietario);
         }
 
@@ -54,9 +54,9 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int idProprietario)
         {
-            var proprietario = _proprietarioRepository.ObterPorId(id);
+            var proprietario = _proprietarioRepository.ObterPorId(idProprietario);
             return View(proprietario);
         }
 
@@ -77,18 +77,18 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int idProprietario)
         {
-            var proprietario = _proprietarioRepository.ObterPorId(id);
+            var proprietario = _proprietarioRepository.ObterPorId(idProprietario);
             return View(proprietario);
         }
 
         // POST: ProprietarioController/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int idProprietario)
         {
-            var proprietario = _proprietarioRepository.ObterPorId(id);
+            var proprietario = _proprietarioRepository.ObterPorId(idProprietario);
             try
             {
                 _proprietarioRepository.Deletar(proprietario);

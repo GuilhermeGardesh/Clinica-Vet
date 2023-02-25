@@ -8,9 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//Repositories
+builder.Services.AddScoped<IProprietarioRepository, ProprietarioRepository>();
+builder.Services.AddScoped<IAtendimentoRepository, AtendimentoRepository>();
+builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
+builder.Services.AddScoped<IMedicoVeterinarioRepository, MedicoVeterinarioRepository>();
+
+
 builder.Services.AddScoped<IAtendimentoService, AtendimentoService>();
 builder.Services.AddScoped<IProprietarioService, ProprietarioService>();
-builder.Services.AddScoped<IProprietarioRepository, ProprietarioRepository>();
 
 builder.Services.AddDbContext<ClinicaVetDbContext>(
        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

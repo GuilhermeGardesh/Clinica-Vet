@@ -1,15 +1,21 @@
 ﻿@model ClinicaVet.GestaoVeterinaria.Models.Proprietario
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>Proprietario</h4>
+    <h4>Proprietário</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ContatoPrincipal)
         </dt>
@@ -64,21 +70,9 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Complemento)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Editar", "Edit", new { idProprietario = Model.Id }) |
+    <a asp-action="Index">Retornar</a>
 </div>
