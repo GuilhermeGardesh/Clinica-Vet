@@ -17,6 +17,8 @@ builder.Services.AddScoped<IMedicoVeterinarioRepository, MedicoVeterinarioReposi
 
 builder.Services.AddScoped<IAtendimentoService, AtendimentoService>();
 builder.Services.AddScoped<IProprietarioService, ProprietarioService>();
+builder.Services.AddScoped<IMedicoVeterinarioService, MedicoVeterinarioService>();
+builder.Services.AddScoped<IAnimalService, AnimalService>();
 
 builder.Services.AddDbContext<ClinicaVetDbContext>(
        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

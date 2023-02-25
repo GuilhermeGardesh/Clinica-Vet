@@ -1,6 +1,8 @@
-﻿namespace ClinicaVet.GestaoVeterinaria.Services
+﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
+
+namespace ClinicaVet.GestaoVeterinaria.Services
 {
-    public class AnimalService
+    public class AnimalService : IAnimalService
     {
     }
 }
