@@ -14,7 +14,7 @@ builder.Services.AddScoped<IAtendimentoRepository, AtendimentoRepository>();
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 builder.Services.AddScoped<IMedicoVeterinarioRepository, MedicoVeterinarioRepository>();
 
-
+//services
 builder.Services.AddScoped<IAtendimentoService, AtendimentoService>();
 builder.Services.AddScoped<IProprietarioService, ProprietarioService>();
 builder.Services.AddScoped<IMedicoVeterinarioService, MedicoVeterinarioService>();

@@ -1,16 +1,21 @@
 ﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
     public class AnimalController : Controller
     {
         private readonly IAnimalRepository _animalRepository;
+        private readonly IProprietarioRepository _proprietarioRepository;
 
-        public AnimalController(IAnimalRepository animalRepository)
+        public AnimalController(
+            IAnimalRepository animalRepository
+            , IProprietarioRepository proprietarioRepository)
         {
             _animalRepository = animalRepository;
+            _proprietarioRepository = proprietarioRepository;
         }
 
         // GET: AnimalController
@@ -30,6 +35,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: AnimalController/Create
         public ActionResult Create()
         {
+            ViewBag.proprietarios = new SelectList(_proprietarioRepository.ObterTodos(), "Id", "Nome");
             return View();
         }
 
