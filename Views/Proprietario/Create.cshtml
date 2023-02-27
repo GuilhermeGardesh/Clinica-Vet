@@ -29,7 +29,6 @@
             <div class="form-group">
                 <label asp-for="ContatoSecundario" class="control-label"></label>
                 <input asp-for="ContatoSecundario" class="form-control" />
-                <span asp-validation-for="ContatoSecundario" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -57,6 +56,18 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="Cidade" class="control-label"></label>
+                <input asp-for="Cidade" class="form-control" />
+                <span asp-validation-for="Cidade" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Bairro" class="control-label"></label>
+                <input asp-for="Bairro" class="form-control" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="Lagradouro" class="control-label"></label>
                 <input asp-for="Lagradouro" class="form-control" />
                 <span asp-validation-for="Lagradouro" class="text-danger"></span>
@@ -71,9 +82,8 @@
             <div class="form-group">
                 <label asp-for="Complemento" class="control-label"></label>
                 <input asp-for="Complemento" class="form-control" />
-                <span asp-validation-for="Complemento" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
@@ -86,5 +96,59 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+
+            function limpa_formulário_cep() {
+                $("#Estado").val("");
+                $("#Cidade").val("");
+                $("#Bairro").val("");
+                $("#Lagradouro").val("");
+            }
+
+            $("#CEP").blur(function () {
+
+                var cep = $(this).val().replace(/\D/g, '');
+
+                if (cep != "") {
+
+                    var validacep = /^[0-9]{8}$/;
+
+                    if (validacep.test(cep)) {
+
+                        $("#Estado").val("buscando");
+                        $("#Cidade").val("buscando");
+                        $("#Bairro").val("buscando");
+                        $("#Lagradouro").val("buscando");
+
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                            if (!("erro" in dados)) {
+                                $("#Estado").val(dados.uf);
+                                $("#Cidade").val(dados.localidade);
+                                $("#Bairro").val(dados.bairro);
+                                $("#Lagradouro").val(dados.logradouro);
+                            }
+                            else {
+                                limpa_formulário_cep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    }
+                    else {
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                }
+                else {
+                    limpa_formulário_cep();
+                }
+            });
+        });
+
+    </script>
 }

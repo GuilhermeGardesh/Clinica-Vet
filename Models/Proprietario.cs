@@ -28,13 +28,19 @@ namespace ClinicaVet.GestaoVeterinaria.Models
         [Required(ErrorMessage = "Estado é um campo obrigatório", AllowEmptyStrings = false)]
         public string Estado { get; set; }
 
+        [Required(ErrorMessage = "Cidade é um campo obrigatório", AllowEmptyStrings = false)]
+        public string Cidade { get; set; }
+
+        [Required(ErrorMessage = "Bairro é um campo obrigatório", AllowEmptyStrings = false)]
+        public string Bairro { get; set; }
+
         [Required(ErrorMessage = "Lagradouro é um campo obrigatório", AllowEmptyStrings = false)]
         public string Lagradouro { get; set; }
 
         [Required(ErrorMessage = "Número é um campo obrigatório", AllowEmptyStrings = false)]
         [DisplayName("Número")]
         public string Numero { get; set; }
-        
+
         public string Complemento { get; set; }
 
         public List<Animal> Animais { get; set; }
