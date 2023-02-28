@@ -21,7 +21,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         // GET: AnimalController
         public ActionResult Index()
         {
-            var animais = _animalRepository.ObterTodos();
+            var animais = _animalRepository.ObterAnimaisProprietarios();
             return View(animais);
         }
 
