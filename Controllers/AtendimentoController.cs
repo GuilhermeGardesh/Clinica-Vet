@@ -45,7 +45,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         public ActionResult IniciarAtendimento()
         {
             ViewBag.medicosParaAtendimento = new SelectList(_medicoVeterinarioRepository.ObterTodos(), "Id", "Nome");
-            ViewBag.animaisParaAtendimento = new SelectList(_animalRepository.ObterTodos(), "Id", "Nome");
+            ViewBag.animaisParaAtendimento = new SelectList(_animalRepository.ObterAnimaisAtivosProprietarios(), "Id", "Nome" + "-" + "Proprietario.Nome");
             return View();
         }
 

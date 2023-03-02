@@ -13,6 +13,9 @@ namespace ClinicaVet.GestaoVeterinaria.Repositories
             _db = clinicaVetDbContext.Set<Animal>();
         }
 
+        public IQueryable<Animal> ObterAnimaisAtivosProprietarios()
+            => _db.Where(animal => animal.Ativo).Include(animal => animal.Proprietario);
+
         public IQueryable<Animal> ObterAnimaisProprietarios()
             => _db.Include(animal => animal.Proprietario);
 
