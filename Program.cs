@@ -1,8 +1,10 @@
+using ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account;
 using ClinicaVet.GestaoVeterinaria.Data;
 using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Repositories;
 using ClinicaVet.GestaoVeterinaria.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +28,9 @@ builder.Services.AddScoped<IAnimalService, AnimalService>();
 builder.Services.AddDbContext<ClinicaVetDbContext>(
        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ClinicaVetDbContext>();
+    .AddEntityFrameworkStores<ClinicaVetDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 //Outros
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);

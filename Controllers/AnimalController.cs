@@ -1,10 +1,12 @@
 ﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
+    [Authorize]
     public class AnimalController : Controller
     {
         private readonly IAnimalRepository _animalRepository;

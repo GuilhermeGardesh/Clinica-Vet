@@ -1,9 +1,11 @@
 ﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
+    [Authorize]
     public class MedicoVeterinarioController : Controller
     {
         private readonly IMedicoVeterinarioRepository _medicoVeterinarioRepository;

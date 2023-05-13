@@ -1,11 +1,13 @@
 ﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
 using ClinicaVet.GestaoVeterinaria.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
+    [Authorize]
     public class AtendimentoController : Controller
     {
         private readonly IAtendimentoService _atendimentoService;

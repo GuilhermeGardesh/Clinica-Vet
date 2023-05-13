@@ -67,19 +67,19 @@ namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "E-mail é um campo obrigatório")]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "E-mail")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Senha é um campo obrigatório")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Senha")]
             public string Password { get; set; }
 
             /// <summary>
@@ -87,8 +87,8 @@ namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirmar Senha")]
+            [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não correspondem.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -113,7 +113,7 @@ namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Acesso criado com Sucesso.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -124,8 +124,8 @@ namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirme seu E-mail",
+                        $"Por favor, confirme sua conta em <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Clique aqui!</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
