@@ -1,0 +1,65 @@
+﻿@model ClinicaVet.GestaoVeterinaria.Models.Roles.RoleEdit
+@{
+    ViewData["Title"] = "Atualizar Permissão";
+}
+
+<style>
+    h2{
+        font-size:x-large;
+    }
+</style>
+
+<h1>Gerenciar Permissão</h1>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post">
+    <input type="hidden" name="roleName" value="@Model.Role.Name" />
+    <input type="hidden" name="roleId" value="@Model.Role.Id" />
+
+    <h2>Adicionar Permissão @Model.Role.Name</h2>
+    <table class="table">
+        @if (Model.NonMembers.Count() == 0)
+        {
+            <tr>
+                <td colspan="2">Não há usuários para adicionar nesta permissão</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var user in Model.NonMembers)
+            {
+                <tr>
+                    <td class="col-1">
+                        <input type="checkbox" name="AddIds" value="@user.Id">
+                    </td>
+                    <td>@user.UserName</td>
+                </tr>
+            }
+        }
+    </table>
+    <br />
+
+    <h2>Remover Permissão @Model.Role.Name</h2>
+    <table class="table">
+        @if (Model.Members.Count() == 0)
+        {
+            <tr>
+                <td colspan="2">Não há usuários com esta permissão</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var user in Model.Members)
+            {
+                <tr>
+                    <td class="col-1">
+                        <input type="checkbox" name="DeleteIds" value="@user.Id">
+                    </td>
+                    <td>@user.UserName</td>
+                </tr>
+            }
+        }
+    </table>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Retornar</a>
+</form>

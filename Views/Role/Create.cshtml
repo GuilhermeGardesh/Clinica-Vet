@@ -1,0 +1,17 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Criar Sessão";
+}
+
+<h1>Criar Sessão</h1>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="name">Nome:</label>
+        <input name="name" class="form-control" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Criar</button>
+    <a asp-action="Index" class="btn btn-secondary">Retornar</a>
+</form>
