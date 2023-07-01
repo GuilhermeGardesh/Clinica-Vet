@@ -2,7 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using ClinicaVet.GestaoVeterinaria.Models.Roles;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,7 @@ using System.Text.Encodings.Web;
 
 namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
 {
+    [Authorize(Roles = RolesConstantes.ROLE_ADMIN_DEV)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -72,12 +75,17 @@ namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
             [Display(Name = "E-mail")]
             public string Email { get; set; }
 
+            [Required(ErrorMessage = "Nome de Usuário é um campo obrigatório")]
+            [StringLength(100, ErrorMessage = "{0} não pode ser maior que {1} ou menor que {2} .", MinimumLength = 6)]
+            [Display(Name = "Nome de Usuário")]
+            public string UserName { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required(ErrorMessage = "Senha é um campo obrigatório")]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0} não pode ser maior que {1} ou menor que {2} .", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }
@@ -107,7 +115,7 @@ namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
