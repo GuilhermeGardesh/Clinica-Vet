@@ -2,7 +2,7 @@
 
 namespace ClinicaVet.GestaoVeterinaria.Models.Roles
 {
-    public class RoleEdit
+    public class RoleEditDTO
     {
         public IdentityRole Role { get; set; }
         public IEnumerable<IdentityUser> Members { get; set; }

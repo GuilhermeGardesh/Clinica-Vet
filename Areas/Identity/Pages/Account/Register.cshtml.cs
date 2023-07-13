@@ -16,7 +16,7 @@ using System.Text.Encodings.Web;
 
 namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles = RolesConstantes.ROLE_ADMIN_DEV)]
+    [Authorize(Policy = "Registro")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

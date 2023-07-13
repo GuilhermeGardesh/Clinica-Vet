@@ -27,7 +27,16 @@ builder.Services.AddScoped<IAnimalService, AnimalService>();
 //Contextos
 builder.Services.AddDbContext<ClinicaVetDbContext>(
        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ClinicaVetDbContext>();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = true;
+})
     .AddEntityFrameworkStores<ClinicaVetDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();

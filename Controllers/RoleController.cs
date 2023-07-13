@@ -58,7 +58,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
                 var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
                 list.Add(user);
             }
-            return View(new RoleEdit
+            return View(new RoleEditDTO
             {
                 Role = role,
                 Members = members,
