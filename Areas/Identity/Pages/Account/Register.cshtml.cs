@@ -2,9 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using ClinicaVet.GestaoVeterinaria.Models.Roles;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +14,7 @@ using System.Text.Encodings.Web;
 
 namespace ClinicaVet.GestaoVeterinaria.Areas.Identity.Pages.Account
 {
-    [Authorize(Policy = "Registro")]
+    //[Authorize(Policy = "Registro")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
