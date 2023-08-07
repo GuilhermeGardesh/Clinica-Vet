@@ -1,0 +1,71 @@
+﻿@model ClinicaVet.GestaoVeterinaria.ViewModels.PermissaoViewModel
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Permissões do usuário</h4>
+    @Html.ActionLink("Adicionar Permissão", "Create", new { idUsuario = Model.User.IdUsuario })
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.NomeUsuario)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.NomeUsuario)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+    </dl>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Área")
+                </th>
+                <th>
+                    @Html.DisplayName("Permissões")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Claims)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        <form asp-action="Delete"
+                              asp-route-idUsuario="@Model.User.IdUsuario"
+                              asp-route-area="@item.Type"
+                              asp-route-permissoes="@item.Value"
+                              method="post">
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <br />
+    <a asp-action="Index">Retornar</a>
+</div>

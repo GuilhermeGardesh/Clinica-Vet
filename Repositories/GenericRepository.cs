@@ -25,6 +25,12 @@ namespace ClinicaVet.GestaoVeterinaria.Repositories
             Salvar();
         }
 
+        public void InserirVarios(List<Entidade> entidades)
+        {
+            _db.AddRange(entidades);
+            Salvar();
+        }
+
         public void Atualizar(Entidade entidade)
         {
             _clinicaVetDbContext.Entry(entidade).State = EntityState.Modified;

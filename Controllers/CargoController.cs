@@ -5,16 +5,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
-    public class RoleController : Controller
+
+    public class CargoController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public CargoController(
+            RoleManager<IdentityRole> roleManager, 
+            UserManager<IdentityUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
         }
+
         public IActionResult Index()
         {
             return View(_roleManager.Roles);

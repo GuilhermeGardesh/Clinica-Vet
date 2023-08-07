@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ClinicaVet.GestaoVeterinaria.Enums;
+@using ClinicaVet.GestaoVeterinaria.Extensions;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,18 +21,36 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Atendimento" asp-action="Index">Atendimento</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Proprietario" asp-action="Index">Proprietário</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Pets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MedicoVeterinario" asp-action="Index">Vets</a>
-                        </li>
+                        @if (this.IfClaim("Atendimento", EPermissoes.L.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Atendimento" asp-action="Index">Atendimento</a>
+                            </li>
+                        }
+                        @if (this.IfClaim(EAreas.Proprietario.ToString(), EPermissoes.L.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proprietario" asp-action="Index">Proprietário</a>
+                            </li>
+                        }
+                        @if (this.IfClaim(EAreas.Animal.ToString(), EPermissoes.L.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Index">Pets</a>
+                            </li>
+                        }
+                        @if (this.IfClaim(EAreas.Medico.ToString(), EPermissoes.L.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="MedicoVeterinario" asp-action="Index">Vets</a>
+                            </li>
+                        }
+                        @if (this.IfClaim(EAreas.Permissao.ToString(), EPermissoes.L.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UserClaim" asp-action="Index">Gerencia de Usuários</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

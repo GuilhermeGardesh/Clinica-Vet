@@ -1,0 +1,77 @@
+﻿@using ClinicaVet.GestaoVeterinaria.Enums;
+@using ClinicaVet.GestaoVeterinaria.Extensions;
+@model IEnumerable<IdentityUser>
+@{
+    ViewData["Title"] = "Configuração de Acessos";
+}
+
+<h1>Configuração de acessos</h1>
+<h4>Usuários</h4>
+
+<div style="display: flex">
+
+    @if (this.IfClaim(EAreas.Permissao.ToString(), EPermissoes.SINC.ToString()))
+    {
+        <form asp-action="SincronizarPermissoesAdministrativas" method="post">
+            <button type="submit" class="btn btn-success">
+                Sincronizar admnistradores
+            </button>
+        </form>
+    }
+
+    @if (this.IfClaim(EAreas.PoliticaDeAcesso.ToString(), EPermissoes.SINC.ToString()))
+    {
+        <form asp-action="SincronizarPoliticasDeAcesso" asp-controller="PoliticaDeAcesso" method="post">
+            <button type="submit" style="margin-left: 10px" class="btn btn-success">
+                Sincronizar Políticas de Acesso
+            </button>
+        </form>
+    }
+
+    @if (this.IfClaim(EAreas.GerenciarUsuarios.ToString(), EPermissoes.L.ToString()))
+    {
+        <a asp-action="Index" asp-controller="Cargo" class="btn btn-success" style="margin-left: 10px">
+            Registrar Usuário
+        </a>
+    }
+
+    @if (this.IfClaim(EAreas.GerenciarUsuarios.ToString(), EPermissoes.C.ToString()))
+    {
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-success" style="margin-left: 10px">
+            Registrar Usuário
+        </a>
+    }
+</div>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Nome")
+            </th>
+            <th>
+                @Html.DisplayName("E-mail")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.ActionLink("Detalhes", "Details", new { idUsuario = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

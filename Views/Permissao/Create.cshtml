@@ -1,0 +1,50 @@
+﻿@using ClinicaVet.GestaoVeterinaria.ViewModels;
+@model ClinicaVet.GestaoVeterinaria.ViewModels.UsuarioPoliticaViewModel;
+@{
+    ViewData["Title"] = "Criar Licitação de Acesso";
+    var usuario = (UsuarioDetalhesViewModel)ViewBag.usuario;
+}
+
+<h1>Cadastrar</h1>
+<h4>Licitação de Acesso</h4>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayName("Nome de Usuário")
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(usuario.NomeUsuario)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayName("E-mail")
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(usuario.Email)
+                </dd>
+            </dl>
+
+
+            <div class="form-group">
+                <label asp-for="IdPoliticaDeAcesso" class="control-label"></label>
+                <select asp-for="IdPoliticaDeAcesso" class="form-control" asp-items="ViewBag.politicas">
+                    <option selected value=""></option>
+                </select>
+                <span asp-validation-for="IdPoliticaDeAcesso" class="text-danger"></span>
+            </div>
+
+            @Html.HiddenFor(model => model.IdUser)
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Criar" class="btn btn-success" />
+            </div>
+
+        </form>
+        <br />
+        <a asp-action="Index" class="btn btn-secondary">Retornar</a>
+    </div>
+</div>

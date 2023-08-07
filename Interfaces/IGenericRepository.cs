@@ -6,6 +6,7 @@
         IQueryable<Entidade> ObterTodos();
         Entidade ObterPorId(int id);
         void Inserir(Entidade entidade);
+        void InserirVarios(List<Entidade> entidades);
         void Atualizar(Entidade entidade);
         void Deletar(Entidade entidade);
         void Salvar();
