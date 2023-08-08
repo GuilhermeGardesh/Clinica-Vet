@@ -1,11 +1,12 @@
-﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
+﻿using ClinicaVet.GestaoVeterinaria.Constantes;
+using ClinicaVet.GestaoVeterinaria.Extensions;
+using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
-    [Authorize]
+    [ClaimsControllerAuthorize(AreasConstantes.PROPRIETARIO)]
     public class ProprietarioController : Controller
     {
         private readonly IProprietarioRepository _proprietarioRepository;
@@ -20,6 +21,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.LER)]
         public ActionResult Index()
         {
             var proprietarios = _proprietarioRepository.ObterTodos();
@@ -27,6 +29,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController/Details/5
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.LER)]
         public ActionResult Details(int idProprietario)
         {
             var proprietario = _proprietarioRepository.ObterPorId(idProprietario);
@@ -34,12 +37,14 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController/Create
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.CRIAR)]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: ProprietarioController/Create
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.CRIAR)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Proprietario proprietario)
@@ -56,6 +61,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController/Edit/5
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.EDITAR)]
         public ActionResult Edit(int idProprietario)
         {
             var proprietario = _proprietarioRepository.ObterPorId(idProprietario);
@@ -63,6 +69,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // POST: ProprietarioController/Edit/5
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.EDITAR)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Proprietario proprietario)
@@ -79,6 +86,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: ProprietarioController/Delete/5
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.EXCLUIR)]
         public ActionResult Delete(int idProprietario)
         {
             var proprietario = _proprietarioRepository.ObterPorId(idProprietario);
@@ -86,6 +94,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // POST: ProprietarioController/Delete/5
+        [ClaimsAuthorize(AreasConstantes.PROPRIETARIO, PermissoesConstantes.EXCLUIR)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int idProprietario)

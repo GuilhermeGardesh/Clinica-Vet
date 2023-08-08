@@ -27,17 +27,38 @@ namespace ClinicaVet.GestaoVeterinaria.Enums
         A,
 
         /// <summary>
+        /// Editar
+        /// </summary>
+        [Display(Name = "Editar")]
+        [Description("Editar")]
+        ED,
+
+        /// <summary>
         /// Excluir
         /// </summary>
         [Display(Name = "Excluir")]
         [Description("Excluir")]
-        E,
+        EX,
 
         /// <summary>
         /// Sincronizar Administração
         /// </summary>
         [Display(Name = "Sincronizar")]
         [Description("Sincronizar")]
-        SINC
+        SINC,
+
+        /// <summary>
+        /// Iniciar Atendimento
+        /// </summary>
+        [Display(Name = "Iniciar Atendimento")]
+        [Description("Iniciar Atendimento")]
+        IA,
+
+        /// <summary>
+        /// Finalizar Atendimento
+        /// </summary>
+        [Display(Name = "Finalizar Atendimento")]
+        [Description("Finalizar Atendimento")]
+        FA
     }
 }

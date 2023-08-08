@@ -1,4 +1,5 @@
-﻿using ClinicaVet.GestaoVeterinaria.Enums;
+﻿using ClinicaVet.GestaoVeterinaria.Constantes;
+using ClinicaVet.GestaoVeterinaria.Enums;
 using ClinicaVet.GestaoVeterinaria.Extensions;
 using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
-    [ClaimsControllerAuthorize("PoliticaDeAcesso")]
+    [ClaimsControllerAuthorize(AreasConstantes.POLITICA_DE_ACESSO)]
     public class PoliticaDeAcessoController : Controller
     {
         private readonly IPoliticaDeAcessoRepository _politicaDeAcessoRepository;
@@ -107,7 +108,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         //}
         //FIM
 
-        [ClaimsAuthorize("PoliticaDeAcesso", "SINC")]
+        [ClaimsAuthorize(AreasConstantes.POLITICA_DE_ACESSO, PermissoesConstantes.SINCRONIZAR)]
         [HttpPost]
         public ActionResult SincronizarPoliticasDeAcesso()
         {

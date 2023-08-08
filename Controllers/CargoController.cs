@@ -1,11 +1,13 @@
-﻿using ClinicaVet.GestaoVeterinaria.Models.Roles;
+﻿using ClinicaVet.GestaoVeterinaria.Constantes;
+using ClinicaVet.GestaoVeterinaria.Extensions;
+using ClinicaVet.GestaoVeterinaria.Models.Roles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
-
+    [ClaimsControllerAuthorize(AreasConstantes.GERENCIAR_USUARIOS)]
     public class CargoController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -19,13 +21,16 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             _userManager = userManager;
         }
 
+        [ClaimsAuthorize(AreasConstantes.GERENCIAR_USUARIOS, PermissoesConstantes.LER)]
         public IActionResult Index()
         {
             return View(_roleManager.Roles);
         }
 
+        [ClaimsAuthorize(AreasConstantes.GERENCIAR_USUARIOS, PermissoesConstantes.CRIAR)]
         public IActionResult Create() => View();
 
+        [ClaimsAuthorize(AreasConstantes.GERENCIAR_USUARIOS, PermissoesConstantes.CRIAR)]
         [HttpPost]
         public async Task<IActionResult> Create([Required] string name)
         {
@@ -37,8 +42,10 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             return View(name);
         }
 
+        [ClaimsAuthorize(AreasConstantes.GERENCIAR_USUARIOS, PermissoesConstantes.EXCLUIR)]
         public IActionResult Delete() => View();
 
+        [ClaimsAuthorize(AreasConstantes.GERENCIAR_USUARIOS, PermissoesConstantes.EXCLUIR)]
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
@@ -52,6 +59,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             return View("Index", _roleManager.Roles);
         }
 
+        [ClaimsAuthorize(AreasConstantes.GERENCIAR_USUARIOS, PermissoesConstantes.ATUALIZAR)]
         public async Task<IActionResult> Update(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);

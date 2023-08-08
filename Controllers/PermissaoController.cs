@@ -1,4 +1,6 @@
-﻿using ClinicaVet.GestaoVeterinaria.Dtos;
+﻿using ClinicaVet.GestaoVeterinaria.Constantes;
+using ClinicaVet.GestaoVeterinaria.Dtos;
+using ClinicaVet.GestaoVeterinaria.Extensions;
 using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +11,7 @@ using System.Security.Claims;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
+    [ClaimsControllerAuthorize(AreasConstantes.PERMISSAO)]
     public class PermissaoController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -28,12 +31,14 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             _politicaDeAcessoRepository = politicaDeAcessoRepository;
         }
 
+        [ClaimsAuthorize(AreasConstantes.PERMISSAO, PermissoesConstantes.LER)]
         public IActionResult Index()
         {
             var usuarios = _userManager.Users.ToList();
             return View(usuarios);
         }
 
+        [ClaimsAuthorize(AreasConstantes.PERMISSAO, PermissoesConstantes.LER)]
         public ViewResult Details(string idUsuario)
         {
             var politicasDoUsuario = _userClaimRepository.ObterTodosPorUsuario(idUsuario)
@@ -58,6 +63,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             return View(userClaims);
         }
 
+        [ClaimsAuthorize(AreasConstantes.PERMISSAO, PermissoesConstantes.CRIAR)]
         public ViewResult Create(string idUsuario)
         {
             ViewBag.politicas = new SelectList(_politicaDeAcessoRepository.ObterPoliticasParaSelectList(), "Id", "AreaPermissao");
@@ -68,6 +74,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             return View(UserClaimViewModel);
         }
 
+        [ClaimsAuthorize(AreasConstantes.PERMISSAO, PermissoesConstantes.CRIAR)]
         [HttpPost]
         public async Task<IActionResult> Create(UsuarioPoliticaViewModel UserClaimViewModel)
         {
@@ -87,6 +94,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             return View(UserClaimViewModel);
         }
 
+        [ClaimsAuthorize(AreasConstantes.PERMISSAO, PermissoesConstantes.EXCLUIR)]
         [HttpPost]
         public ActionResult Delete(string idUsuario, string area, string permissoes)
         {
@@ -101,6 +109,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             return RedirectToAction("Details", new { @idUsuario = idUsuario });
         }
 
+        [ClaimsAuthorize(AreasConstantes.PERMISSAO, PermissoesConstantes.SINCRONIZAR)]
         [HttpPost]
         public ActionResult SincronizarPermissoesAdministrativas()
         {

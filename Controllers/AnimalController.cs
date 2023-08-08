@@ -1,4 +1,6 @@
-﻿using ClinicaVet.GestaoVeterinaria.Interfaces;
+﻿using ClinicaVet.GestaoVeterinaria.Constantes;
+using ClinicaVet.GestaoVeterinaria.Extensions;
+using ClinicaVet.GestaoVeterinaria.Interfaces;
 using ClinicaVet.GestaoVeterinaria.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClinicaVet.GestaoVeterinaria.Controllers
 {
-    [Authorize]
+    [ClaimsControllerAuthorize(AreasConstantes.ANIMAL)]
     public class AnimalController : Controller
     {
         private readonly IAnimalRepository _animalRepository;
@@ -21,6 +23,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: AnimalController
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.LER)]
         public ActionResult Index()
         {
             var animais = _animalRepository.ObterAnimaisProprietarios();
@@ -28,6 +31,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: AnimalController/Details/5
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.LER)]
         public ActionResult Details(int idAnimal)
         {
             var animal = _animalRepository.ObterPorId(idAnimal);
@@ -35,6 +39,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: AnimalController/Create
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.CRIAR)]
         public ActionResult Create()
         {
             ViewBag.proprietarios = new SelectList(_proprietarioRepository.ObterTodos(), "Id", "Nome");
@@ -42,6 +47,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // POST: AnimalController/Create
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.CRIAR)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Animal animal)
@@ -56,8 +62,8 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
                 return View();
             }
         }
-
         // GET: AnimalController/Edit/5
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.EDITAR)]
         public ActionResult Edit(int idAnimal)
         {
             var animal = _animalRepository.ObterPorId(idAnimal);
@@ -65,6 +71,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // POST: AnimalController/Edit/5
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.EDITAR)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Animal animal)
@@ -81,6 +88,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // GET: AnimalController/Delete/5
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.EXCLUIR)]
         public ActionResult Delete(int idAnimal)
         {
             var animal = _animalRepository.ObterPorId(idAnimal);
@@ -88,6 +96,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
         }
 
         // POST: AnimalController/Delete/5
+        [ClaimsAuthorize(AreasConstantes.ANIMAL, PermissoesConstantes.EXCLUIR)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int idAnimal)
@@ -95,6 +104,7 @@ namespace ClinicaVet.GestaoVeterinaria.Controllers
             try
             {
                 var animal = _animalRepository.ObterPorId(idAnimal);
+
                 _animalRepository.Deletar(animal);
                 return RedirectToAction(nameof(Index));
             }
